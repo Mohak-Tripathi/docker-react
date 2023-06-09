@@ -1,0 +1,21 @@
+version: '3'
+services:
+    web: 
+      build:
+      # these 2 are used becz are dockerfile is right not dockerfile.dev
+        context: .
+        dockerfile: Dockerfile.dev
+      ports:
+        - "3000:3000"
+      volumes:
+        - /home/node/app/node_modules
+        - .:/home/node/app
+    tests: 
+      build:
+        context: .
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /home/node/app/node_modules
+        - .:/home/node/app
+        #overriding default command npm run start for tests service
+      command: ["npm", "run", "test"]
